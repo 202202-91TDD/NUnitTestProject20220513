@@ -20,12 +20,12 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Period another)
         {
-            if (End < Start)
+            if (IsInvalid())
             {
                 return 0;
             }
 
-            if (another.End < Start || another.Start > End)
+            if (HasNoOverlapping(another))
             {
                 return 0;
             }
@@ -34,6 +34,16 @@ namespace NUnitTestProject20220513
             var overlappingStart = new[] { Start, another.Start }.Max();
 
             return (overlappingEnd - overlappingStart).Days + 1;
+        }
+
+        private bool HasNoOverlapping(Period another)
+        {
+            return another.End < Start || another.Start > End;
+        }
+
+        private bool IsInvalid()
+        {
+            return End < Start;
         }
     }
 }
