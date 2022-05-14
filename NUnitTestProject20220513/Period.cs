@@ -18,9 +18,8 @@ namespace NUnitTestProject20220513
         private DateTime End { get; set; }
         private DateTime Start { get; set; }
 
-        public int OverlappingDays(Budget budget)
+        public int OverlappingDays(Period another)
         {
-            var another = new Period(budget.FirstDay(), budget.LastDay());
             var overlappingEnd = new[] { End, another.End }.Min();
             var overlappingStart = new[] { Start, another.Start }.Max();
 
