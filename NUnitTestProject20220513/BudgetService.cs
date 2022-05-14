@@ -37,22 +37,18 @@ namespace NUnitTestProject20220513
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
                         overlappingDays = (end.Day - start.Day + 1);
-                        // total += budget.DailyAmount() * overlappingDays;
                     }
                     else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
                         overlappingDays = (budget.Days() - start.Day + 1);
-                        // total += budget.DailyAmount() * overlappingDays;
                     }
                     else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
                         overlappingDays = (end.Day);
-                        // total += budget.DailyAmount() * overlappingDays;
                     }
                     else
                     {
                         overlappingDays = budget.Days();
-                        // total += budget.DailyAmount() * overlappingDays;
                     }
 
                     total += budget.DailyAmount() * overlappingDays;
