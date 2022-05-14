@@ -20,12 +20,7 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Period another)
         {
-            if (IsInvalid())
-            {
-                return 0;
-            }
-
-            if (HasNoOverlapping(another))
+            if (IsInvalid() || HasNoOverlapping(another))
             {
                 return 0;
             }
