@@ -11,9 +11,14 @@ namespace NUnitTestProject20220513
         public int Amount { get; set; }
         public string YearMonth { get; set; }
 
-        public int DailyAmount()
+        public Period CreatePeriod()
         {
-            return Amount / Days();
+            return new Period(FirstDay(), LastDay());
+        }
+
+        public decimal DailyAmount()
+        {
+            return Amount / (decimal)Days();
         }
 
         public int Days()
@@ -32,12 +37,7 @@ namespace NUnitTestProject20220513
             return DateTime.ParseExact(YearMonth + Days(), "yyyyMMdd", null);
         }
 
-        public Period CreatePeriod()
-        {
-            return new Period(FirstDay(), LastDay());
-        }
-
-        public int OverlappingAmount(Period period)
+        public decimal OverlappingAmount(Period period)
         {
             return DailyAmount() * period.OverlappingDays(CreatePeriod());
         }
