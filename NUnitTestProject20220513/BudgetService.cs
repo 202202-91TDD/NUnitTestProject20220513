@@ -34,7 +34,7 @@ namespace NUnitTestProject20220513
                 if (budget != null)
                 {
                     var period = new Period(start, end);
-                    var overlappingDays = period.OverlappingDays(new Period(budget.FirstDay(), budget.LastDay()));
+                    var overlappingDays = period.OverlappingDays(CreatePeriod(budget));
 
                     total += budget.DailyAmount() * overlappingDays;
                 }
@@ -43,6 +43,11 @@ namespace NUnitTestProject20220513
             }
 
             return total;
+        }
+
+        private static Period CreatePeriod(Budget budget)
+        {
+            return new Period(budget.FirstDay(), budget.LastDay());
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
