@@ -35,13 +35,18 @@ namespace NUnitTestProject20220513
                 {
                     var period = new Period(start, end);
 
-                    total += budget.DailyAmount() * period.OverlappingDays(budget.CreatePeriod());
+                    total += OverlappingAmount(budget, period);
                 }
 
                 current = current.AddMonths(1);
             }
 
             return total;
+        }
+
+        private static int OverlappingAmount(Budget budget, Period period)
+        {
+            return budget.DailyAmount() * period.OverlappingDays(budget.CreatePeriod());
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
