@@ -20,6 +20,7 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Budget budget)
         {
+            var another = new Period(budget.FirstDay(), budget.LastDay());
             var firstDay = budget.FirstDay();
             var lastDay = budget.LastDay();
             var overlappingEnd = new[] { End, lastDay }.Min();
