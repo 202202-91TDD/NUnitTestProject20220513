@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 #endregion
@@ -71,16 +70,5 @@ namespace NUnitTestProject20220513
         {
             return end < start;
         }
-    }
-
-    public class Budget
-    {
-        public int Amount { get; set; }
-        public string YearMonth { get; set; }
-    }
-
-    public interface IBudgetRepository
-    {
-        public List<Budget> GetAll();
     }
 }
