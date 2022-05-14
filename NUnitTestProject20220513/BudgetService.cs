@@ -26,8 +26,8 @@ namespace NUnitTestProject20220513
 
             var data = budgetRepository.GetAll();
 
-            DateTime current = new DateTime(start.Year, start.Month, 1);
-            decimal total = 0;
+            var current = new DateTime(start.Year, start.Month, 1);
+            var total = 0m;
             while (true)
             {
                 var budget = data.FirstOrDefault(m => m.YearMonth == current.ToString("yyyyMM")) ?? new Budget();
