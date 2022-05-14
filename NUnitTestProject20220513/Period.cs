@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Linq;
 
 #endregion
 
@@ -19,26 +20,26 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Budget budget)
         {
-            DateTime overlappingEnd;
+            DateTime overlappingEnd = new[] { End, budget.LastDay() }.Min();
             DateTime overlappingStart;
             if (Start.ToString("yyyyMM") == End.ToString("yyyyMM"))
             {
-                overlappingEnd = End;
+                // overlappingEnd = End;
                 overlappingStart = Start;
             }
             else if (budget.YearMonth == Start.ToString("yyyyMM"))
             {
-                overlappingEnd = budget.LastDay();
+                // overlappingEnd = budget.LastDay();
                 overlappingStart = Start;
             }
             else if (budget.YearMonth == End.ToString("yyyyMM"))
             {
-                overlappingEnd = End;
+                // overlappingEnd = End;
                 overlappingStart = budget.FirstDay();
             }
             else
             {
-                overlappingEnd = budget.LastDay();
+                // overlappingEnd = budget.LastDay();
                 overlappingStart = budget.FirstDay();
             }
 
