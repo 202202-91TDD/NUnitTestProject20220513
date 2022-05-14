@@ -61,13 +61,7 @@ namespace NUnitTestProject20220513
 
         private static int DailyAmount(Budget budget)
         {
-            var dailyAmount = budget.Amount / budget.Days();
-            return dailyAmount;
-        }
-
-        private int DaysInMonth(DateTime start)
-        {
-            return DateTime.DaysInMonth(start.Year, start.Month);
+            return budget.Amount / budget.Days();
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
