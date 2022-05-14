@@ -7,6 +7,18 @@ using System.Linq;
 
 namespace NUnitTestProject20220513
 {
+    public class Period
+    {
+        public Period(DateTime start, DateTime end)
+        {
+            Start = start;
+            End = end;
+        }
+
+        public DateTime End { get; private set; }
+        public DateTime Start { get; private set; }
+    }
+
     public class BudgetService
     {
         private readonly IBudgetRepository budgetRepository;
@@ -33,7 +45,7 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var overlappingDays = OverlappingDays(start, end, budget);
+                    var overlappingDays = OverlappingDays(new Period(start, end), budget);
 
                     total += budget.DailyAmount() * overlappingDays;
                 }
@@ -44,23 +56,23 @@ namespace NUnitTestProject20220513
             return total;
         }
 
-        private static int OverlappingDays(DateTime start, DateTime end, Budget budget)
+        private static int OverlappingDays(Period period, Budget budget)
         {
             DateTime overlappingEnd;
             DateTime overlappingStart;
-            if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
+            if (period.Start.ToString("yyyyMM") == period.End.ToString("yyyyMM"))
             {
-                overlappingEnd = end;
-                overlappingStart = start;
+                overlappingEnd = period.End;
+                overlappingStart = period.Start;
             }
-            else if (budget.YearMonth == start.ToString("yyyyMM"))
+            else if (budget.YearMonth == period.Start.ToString("yyyyMM"))
             {
                 overlappingEnd = budget.LastDay();
-                overlappingStart = start;
+                overlappingStart = period.Start;
             }
-            else if (budget.YearMonth == end.ToString("yyyyMM"))
+            else if (budget.YearMonth == period.End.ToString("yyyyMM"))
             {
-                overlappingEnd = end;
+                overlappingEnd = period.End;
                 overlappingStart = budget.FirstDay();
             }
             else
