@@ -1,109 +1,97 @@
+#region
+
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
+
+#endregion
 
 namespace NUnitTestProject20220513
 {
     public class BudgetTest
     {
-        [SetUp]
-        public void Setup()
-        {
+        private BudgetService _budgetService;
+        private IBudgetRepository _repo;
 
+        [SetUp]
+        public void SetUp()
+        {
+            _repo = Substitute.For<IBudgetRepository>();
+            _budgetService = new BudgetService(_repo);
         }
 
         [Test]
-        
         public void TestBudgetQuery_InvalidDateTime()
         {
-            var repo = Substitute.For<IBudgetRepository>();
-            var budgetService = new BudgetService(repo);
-            DateTime start = new DateTime(2022, 5, 10);
-            DateTime end = new DateTime(2022, 5, 1);
-            Assert.AreEqual(0, budgetService.Query(start,end));
+            var start = new DateTime(2022, 5, 10);
+            var end = new DateTime(2022, 5, 1);
+            TotalAmountShouldBe(start, end, 0);
         }
 
-
         [Test]
-        
-        public void TestBudgetQuery_SingleMonth()
-        {
-            var repo = Substitute.For<IBudgetRepository>();
-            repo.GetAll().Returns(new List<Budget>()
-            {
-                new Budget(){ YearMonth = "202205", Amount = 310}
-
-            });
-
-            DateTime start = new DateTime(2022, 5, 1);
-            DateTime end = new DateTime(2022, 5, 10);
-
-            var budgetService = new BudgetService(repo);
-            Assert.AreEqual(100, budgetService.Query(start, end));
-        }
-
-
-        [Test]
-        
-        public void TestBudgetQuery_SingleDay()
-        {
-            var repo = Substitute.For<IBudgetRepository>();
-            repo.GetAll().Returns(new List<Budget>()
-            {
-                new Budget(){ YearMonth = "202204", Amount = 180},
-                new Budget(){ YearMonth = "202205", Amount = 310}
-
-            });
-
-            DateTime start = new DateTime(2022, 5, 10);
-            DateTime end = new DateTime(2022, 5, 10);
-
-            var budgetService = new BudgetService(repo);
-            Assert.AreEqual(10, budgetService.Query(start, end));
-        }        
-
-        [Test]
-
         public void TestBudgetQuery_MultiMonth()
         {
-            var repo = Substitute.For<IBudgetRepository>();
-            repo.GetAll().Returns(new List<Budget>()
-            {
-                new Budget(){ YearMonth = "202204", Amount = 180},
-                new Budget(){ YearMonth = "202205", Amount = 310},
-                new Budget(){ YearMonth = "202206", Amount = 420}
+            GivenBudgets(
+                new Budget() { YearMonth = "202204", Amount = 180 },
+                new Budget() { YearMonth = "202205", Amount = 310 },
+                new Budget() { YearMonth = "202206", Amount = 420 });
 
-            });
+            var start = new DateTime(2022, 4, 30);
+            var end = new DateTime(2022, 6, 10);
 
-            DateTime start = new DateTime(2022, 4, 30);
-            DateTime end = new DateTime(2022, 6, 10);
-
-            var budgetService = new BudgetService(repo);
-            Assert.AreEqual(456, budgetService.Query(start, end));
+            TotalAmountShouldBe(start, end, 456);
         }
 
         [Test]
-
         public void TestBudgetQuery_NoBudget_ReturnZero()
         {
-            var repo = Substitute.For<IBudgetRepository>();
-            repo.GetAll().Returns(new List<Budget>()
-            {
-                new Budget(){ YearMonth = "202204", Amount = 180},
-                new Budget(){ YearMonth = "202205", Amount = 310},
-                new Budget(){ YearMonth = "202206", Amount = 420}
+            GivenBudgets(
+                new Budget() { YearMonth = "202204", Amount = 180 },
+                new Budget() { YearMonth = "202205", Amount = 310 },
+                new Budget() { YearMonth = "202206", Amount = 420 });
 
-            });
+            var start = new DateTime(2021, 4, 30);
+            var end = new DateTime(2021, 6, 10);
 
-            DateTime start = new DateTime(2021, 4, 30);
-            DateTime end = new DateTime(2021, 6, 10);
+            TotalAmountShouldBe(start, end, 0);
+        }
 
-            var budgetService = new BudgetService(repo);
-            Assert.AreEqual(0, budgetService.Query(start, end));
+        [Test]
+        public void TestBudgetQuery_SingleDay()
+        {
+            GivenBudgets(
+                new Budget() { YearMonth = "202204", Amount = 180 },
+                new Budget() { YearMonth = "202205", Amount = 310 });
+
+            var start = new DateTime(2022, 5, 10);
+            var end = new DateTime(2022, 5, 10);
+
+            TotalAmountShouldBe(start, end, 10);
+        }
+
+        [Test]
+        public void TestBudgetQuery_SingleMonth()
+        {
+            GivenBudgets(
+                new Budget() { YearMonth = "202205", Amount = 310 }
+            );
+
+            var start = new DateTime(2022, 5, 1);
+            var end = new DateTime(2022, 5, 10);
+
+            TotalAmountShouldBe(start, end, 100);
+        }
+
+        private void GivenBudgets(params Budget[] budgets)
+        {
+            _repo.GetAll()
+                 .Returns(budgets.ToList());
+        }
+
+        private void TotalAmountShouldBe(DateTime start, DateTime end, int expected)
+        {
+            Assert.AreEqual(expected, _budgetService.Query(start, end));
         }
     }
-
-  
 }
