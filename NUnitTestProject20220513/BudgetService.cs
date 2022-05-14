@@ -27,14 +27,13 @@ namespace NUnitTestProject20220513
 
             var current = start;
             var total = 0m;
+            var period = new Period(start, end);
             while (current < new DateTime(end.Year, end.Month, 1).AddMonths(1))
             {
                 var budget = budgets.FirstOrDefault(x => x.YearMonth == current.ToString("yyyyMM"));
 
                 if (budget != null)
                 {
-                    var period = new Period(start, end);
-
                     total += budget.OverlappingAmount(period);
                 }
 
