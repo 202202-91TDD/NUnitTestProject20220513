@@ -26,9 +26,8 @@ namespace NUnitTestProject20220513
             var budgets = budgetRepository.GetAll();
 
             var current = start;
-            // var current = new DateTime(start.Year, start.Month, 1);
             var total = 0m;
-            while (true)
+            while (current < new DateTime(end.Year, end.Month, 1).AddMonths(1))
             {
                 var budget = budgets.FirstOrDefault(m => m.YearMonth == current.ToString("yyyyMM")) ?? new Budget();
 
@@ -51,10 +50,10 @@ namespace NUnitTestProject20220513
                     total += budget.Amount;
                 }
 
-                if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
-                {
-                    break;
-                }
+                // if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                // {
+                //     break;
+                // }
 
                 current = current.AddMonths(1);
             }
