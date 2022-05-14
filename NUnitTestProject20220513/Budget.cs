@@ -11,15 +11,20 @@ namespace NUnitTestProject20220513
         public int Amount { get; set; }
         public string YearMonth { get; set; }
 
+        public int DailyAmount()
+        {
+            return Amount / Days();
+        }
+
         public int Days()
         {
             var firstDay = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
             return DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
         }
 
-        public int DailyAmount()
+        public DateTime LastDay()
         {
-            return Amount / Days();
+            return DateTime.ParseExact(YearMonth + Days(), "yyyyMMdd", null);
         }
     }
 }
