@@ -25,7 +25,8 @@ namespace NUnitTestProject20220513
 
             var budgets = budgetRepository.GetAll();
 
-            var current = new DateTime(start.Year, start.Month, 1);
+            var current = start;
+            // var current = new DateTime(start.Year, start.Month, 1);
             var total = 0m;
             while (true)
             {
