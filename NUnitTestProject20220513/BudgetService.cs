@@ -17,12 +17,11 @@ namespace NUnitTestProject20220513
         }
 
         public decimal Query(DateTime start, DateTime end)
-        { 
-            var budgets = _budgetRepository.GetAll();
-
+        {
             var period = new Period(start, end);
 
-            return budgets.Sum(budget => budget.OverlappingAmount(period));
+            return _budgetRepository.GetAll()
+                                    .Sum(budget => budget.OverlappingAmount(period));
         }
     }
 }
