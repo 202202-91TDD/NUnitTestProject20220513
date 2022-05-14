@@ -9,11 +9,11 @@ namespace NUnitTestProject20220513
 {
     public class BudgetService
     {
-        private readonly IBudgetRepository budgetRepository;
+        private readonly IBudgetRepository _budgetRepository;
 
-        public BudgetService(IBudgetRepository _budgetRepository)
+        public BudgetService(IBudgetRepository budgetRepository)
         {
-            budgetRepository = _budgetRepository;
+            _budgetRepository = budgetRepository;
         }
 
         public decimal Query(DateTime start, DateTime end)
@@ -23,7 +23,7 @@ namespace NUnitTestProject20220513
                 return 0;
             }
 
-            var budgets = budgetRepository.GetAll();
+            var budgets = _budgetRepository.GetAll();
 
             var current = start;
             var total = 0m;
@@ -35,18 +35,13 @@ namespace NUnitTestProject20220513
                 {
                     var period = new Period(start, end);
 
-                    total += OverlappingAmount(budget, period);
+                    total += budget.OverlappingAmount(period);
                 }
 
                 current = current.AddMonths(1);
             }
 
             return total;
-        }
-
-        private static int OverlappingAmount(Budget budget, Period period)
-        {
-            return budget.DailyAmount() * period.OverlappingDays(budget.CreatePeriod());
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
