@@ -33,7 +33,7 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var dailyAmount = DailyAmount(budget);
+                    var dailyAmount = budget.DailyAmount();
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
                         total += dailyAmount * (end.Day - start.Day + 1);
@@ -57,11 +57,6 @@ namespace NUnitTestProject20220513
             }
 
             return total;
-        }
-
-        private static int DailyAmount(Budget budget)
-        {
-            return budget.Amount / budget.Days();
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
