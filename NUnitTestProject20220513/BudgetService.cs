@@ -36,19 +36,27 @@ namespace NUnitTestProject20220513
                     int overlappingDays;
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        overlappingDays = (end - start).Days + 1;
+                        var overlappingEnd = end;
+                        var overlappingStart = start;
+                        overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
                     }
                     else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
-                        overlappingDays = (budget.LastDay() - start).Days + 1;
+                        var overlappingEnd = budget.LastDay();
+                        var overlappingStart = start;
+                        overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
                     }
                     else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        overlappingDays = (end - budget.FirstDay()).Days + 1;
+                        var overlappingEnd = end;
+                        var overlappingStart = budget.FirstDay();
+                        overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
                     }
                     else
                     {
-                        overlappingDays = (budget.LastDay() - budget.FirstDay()).Days + 1;
+                        var overlappingEnd = budget.LastDay();
+                        var overlappingStart = budget.FirstDay();
+                        overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
                     }
 
                     total += budget.DailyAmount() * overlappingDays;
