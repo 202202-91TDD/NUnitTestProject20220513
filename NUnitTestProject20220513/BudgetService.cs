@@ -34,9 +34,8 @@ namespace NUnitTestProject20220513
                 if (budget != null)
                 {
                     var period = new Period(start, end);
-                    var overlappingDays = period.OverlappingDays(budget.CreatePeriod());
 
-                    total += budget.DailyAmount() * overlappingDays;
+                    total += budget.DailyAmount() * period.OverlappingDays(budget.CreatePeriod());
                 }
 
                 current = current.AddMonths(1);
