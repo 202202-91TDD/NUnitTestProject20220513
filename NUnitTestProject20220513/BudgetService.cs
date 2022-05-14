@@ -46,7 +46,8 @@ namespace NUnitTestProject20220513
                     }
                     else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        overlappingDays = (end.Day);
+                        overlappingDays = (end - budget.FirstDay()).Days + 1;
+                        // overlappingDays = (end.Day);
                     }
                     else
                     {

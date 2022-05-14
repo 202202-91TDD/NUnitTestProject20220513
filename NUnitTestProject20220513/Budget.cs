@@ -18,8 +18,13 @@ namespace NUnitTestProject20220513
 
         public int Days()
         {
-            var firstDay = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+            var firstDay = FirstDay();
             return DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
+        }
+
+        public DateTime FirstDay()
+        {
+            return DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
         }
 
         public DateTime LastDay()
