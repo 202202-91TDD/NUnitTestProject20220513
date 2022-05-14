@@ -36,7 +36,8 @@ namespace NUnitTestProject20220513
                     int overlappingDays;
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        overlappingDays = (end.Day - start.Day + 1);
+                        overlappingDays = (end - start).Days + 1;
+                        // overlappingDays = (end.Day - start.Day + 1);
                     }
                     else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
