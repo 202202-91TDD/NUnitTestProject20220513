@@ -33,21 +33,19 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var daysInMonth = budget.Days();
-                    // var daysInMonth = DaysInMonth(current);
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        total += budget.Amount / daysInMonth * (end.Day - start.Day + 1);
+                        total += budget.Amount / budget.Days() * (end.Day - start.Day + 1);
                     }
                     else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
                         total += budget.Amount /
-                            daysInMonth *
-                            (daysInMonth - start.Day + 1);
+                            budget.Days() *
+                            (budget.Days() - start.Day + 1);
                     }
                     else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        total += budget.Amount / daysInMonth * (end.Day);
+                        total += budget.Amount / budget.Days() * (end.Day);
                     }
                     else
                     {
