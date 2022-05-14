@@ -33,7 +33,8 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var daysInMonth = DaysInMonth(current);
+                    var daysInMonth = budget.Days();
+                    // var daysInMonth = DaysInMonth(current);
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
                         total += budget.Amount / daysInMonth * (end.Day - start.Day + 1);
