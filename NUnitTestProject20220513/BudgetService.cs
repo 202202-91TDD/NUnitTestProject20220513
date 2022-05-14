@@ -33,19 +33,17 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var dailyAmount = budget.DailyAmount();
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        total += dailyAmount * (end.Day - start.Day + 1);
+                        total += budget.DailyAmount() * (end.Day - start.Day + 1);
                     }
                     else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
-                        total += dailyAmount *
-                            (budget.Days() - start.Day + 1);
+                        total += budget.DailyAmount() * (budget.Days() - start.Day + 1);
                     }
                     else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        total += dailyAmount * (end.Day);
+                        total += budget.DailyAmount() * (end.Day);
                     }
                     else
                     {
