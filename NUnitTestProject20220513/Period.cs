@@ -20,6 +20,11 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Period another)
         {
+            if (another.End < Start || another.Start > End)
+            {
+                return 0;
+            }
+
             var overlappingEnd = new[] { End, another.End }.Min();
             var overlappingStart = new[] { Start, another.Start }.Max();
 
