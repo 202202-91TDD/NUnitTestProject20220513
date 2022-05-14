@@ -31,5 +31,10 @@ namespace NUnitTestProject20220513
         {
             return DateTime.ParseExact(YearMonth + Days(), "yyyyMMdd", null);
         }
+
+        public Period CreatePeriod()
+        {
+            return new Period(FirstDay(), LastDay());
+        }
     }
 }
