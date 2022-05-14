@@ -40,12 +40,12 @@ namespace NUnitTestProject20220513
                         overlappingEnd = end;
                         overlappingStart = start;
                     }
-                    else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
+                    else if (budget.YearMonth == start.ToString("yyyyMM"))
                     {
                         overlappingEnd = budget.LastDay();
                         overlappingStart = start;
                     }
-                    else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                    else if (budget.YearMonth == end.ToString("yyyyMM"))
                     {
                         overlappingEnd = end;
                         overlappingStart = budget.FirstDay();
