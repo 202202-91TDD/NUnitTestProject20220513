@@ -51,7 +51,8 @@ namespace NUnitTestProject20220513
                     }
                     else
                     {
-                        overlappingDays = budget.Days();
+                        overlappingDays = (budget.LastDay() - budget.FirstDay()).Days + 1;
+                        // overlappingDays = budget.Days();
                     }
 
                     total += budget.DailyAmount() * overlappingDays;
