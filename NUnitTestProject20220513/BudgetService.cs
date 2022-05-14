@@ -29,31 +29,29 @@ namespace NUnitTestProject20220513
             var total = 0m;
             while (current < new DateTime(end.Year, end.Month, 1).AddMonths(1))
             {
-                var budget = budgets.FirstOrDefault(m => m.YearMonth == current.ToString("yyyyMM")) ?? new Budget();
+                var budget = budgets.FirstOrDefault(x => x.YearMonth == current.ToString("yyyyMM"));
 
-                if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                if (budget != null)
                 {
-                    total += budget.Amount / DaysInMonth(current) * (end.Day - start.Day + 1);
+                    if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                    {
+                        total += budget.Amount / DaysInMonth(current) * (end.Day - start.Day + 1);
+                    }
+                    else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
+                    {
+                        total += budget.Amount /
+                            DaysInMonth(current) *
+                            (DaysInMonth(current) - start.Day + 1);
+                    }
+                    else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                    {
+                        total += budget.Amount / DaysInMonth(current) * (end.Day);
+                    }
+                    else
+                    {
+                        total += budget.Amount;
+                    }
                 }
-                else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
-                {
-                    total += budget.Amount /
-                        DaysInMonth(current) *
-                        (DaysInMonth(current) - start.Day + 1);
-                }
-                else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
-                {
-                    total += budget.Amount / DaysInMonth(current) * (end.Day);
-                }
-                else
-                {
-                    total += budget.Amount;
-                }
-
-                // if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
-                // {
-                //     break;
-                // }
 
                 current = current.AddMonths(1);
             }
