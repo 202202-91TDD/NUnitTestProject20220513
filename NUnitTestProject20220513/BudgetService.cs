@@ -33,7 +33,7 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var dailyAmount = budget.Amount / budget.Days();
+                    var dailyAmount = DailyAmount(budget);
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
                         total += dailyAmount * (end.Day - start.Day + 1);
@@ -57,6 +57,12 @@ namespace NUnitTestProject20220513
             }
 
             return total;
+        }
+
+        private static int DailyAmount(Budget budget)
+        {
+            var dailyAmount = budget.Amount / budget.Days();
+            return dailyAmount;
         }
 
         private int DaysInMonth(DateTime start)
