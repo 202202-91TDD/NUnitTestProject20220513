@@ -20,31 +20,10 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Budget budget)
         {
-            DateTime overlappingEnd = new[] { End, budget.LastDay() }.Min();
-            DateTime overlappingStart = new[] { Start, budget.FirstDay() }.Max();
-            if (Start.ToString("yyyyMM") == End.ToString("yyyyMM"))
-            {
-                // overlappingEnd = End;
-                // overlappingStart = Start;
-            }
-            else if (budget.YearMonth == Start.ToString("yyyyMM"))
-            {
-                // overlappingEnd = budget.LastDay();
-                // overlappingStart = Start;
-            }
-            else if (budget.YearMonth == End.ToString("yyyyMM"))
-            {
-                // overlappingEnd = End;
-                // overlappingStart = budget.FirstDay();
-            }
-            else
-            {
-                // overlappingEnd = budget.LastDay();
-                // overlappingStart = budget.FirstDay();
-            }
+            var overlappingEnd = new[] { End, budget.LastDay() }.Min();
+            var overlappingStart = new[] { Start, budget.FirstDay() }.Max();
 
-            var overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
-            return overlappingDays;
+            return (overlappingEnd - overlappingStart).Days + 1;
         }
     }
 }
