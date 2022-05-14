@@ -33,27 +33,29 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
+                    int overlappingDays;
                     if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        var overlappingDays = (end.Day - start.Day + 1);
-                        total += budget.DailyAmount() * overlappingDays;
+                        overlappingDays = (end.Day - start.Day + 1);
+                        // total += budget.DailyAmount() * overlappingDays;
                     }
                     else if (current.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
-                        var overlappingDays = (budget.Days() - start.Day + 1);
-                        total += budget.DailyAmount() * overlappingDays;
+                        overlappingDays = (budget.Days() - start.Day + 1);
+                        // total += budget.DailyAmount() * overlappingDays;
                     }
                     else if (current.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        var overlappingDays = (end.Day);
-                        total += budget.DailyAmount() * overlappingDays;
+                        overlappingDays = (end.Day);
+                        // total += budget.DailyAmount() * overlappingDays;
                     }
                     else
                     {
-                        var overlappingDays = budget.Days();
-                        total += budget.DailyAmount() * overlappingDays;
-                        // total += budget.Amount;
+                        overlappingDays = budget.Days();
+                        // total += budget.DailyAmount() * overlappingDays;
                     }
+
+                    total += budget.DailyAmount() * overlappingDays;
                 }
 
                 current = current.AddMonths(1);
