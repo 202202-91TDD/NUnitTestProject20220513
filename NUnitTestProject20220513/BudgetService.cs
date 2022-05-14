@@ -33,30 +33,7 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    DateTime overlappingEnd;
-                    DateTime overlappingStart;
-                    if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
-                    {
-                        overlappingEnd = end;
-                        overlappingStart = start;
-                    }
-                    else if (budget.YearMonth == start.ToString("yyyyMM"))
-                    {
-                        overlappingEnd = budget.LastDay();
-                        overlappingStart = start;
-                    }
-                    else if (budget.YearMonth == end.ToString("yyyyMM"))
-                    {
-                        overlappingEnd = end;
-                        overlappingStart = budget.FirstDay();
-                    }
-                    else
-                    {
-                        overlappingEnd = budget.LastDay();
-                        overlappingStart = budget.FirstDay();
-                    }
-
-                    var overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
+                    var overlappingDays = OverlappingDays(start, end, budget);
 
                     total += budget.DailyAmount() * overlappingDays;
                 }
@@ -65,6 +42,35 @@ namespace NUnitTestProject20220513
             }
 
             return total;
+        }
+
+        private static int OverlappingDays(DateTime start, DateTime end, Budget budget)
+        {
+            DateTime overlappingEnd;
+            DateTime overlappingStart;
+            if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
+            {
+                overlappingEnd = end;
+                overlappingStart = start;
+            }
+            else if (budget.YearMonth == start.ToString("yyyyMM"))
+            {
+                overlappingEnd = budget.LastDay();
+                overlappingStart = start;
+            }
+            else if (budget.YearMonth == end.ToString("yyyyMM"))
+            {
+                overlappingEnd = end;
+                overlappingStart = budget.FirstDay();
+            }
+            else
+            {
+                overlappingEnd = budget.LastDay();
+                overlappingStart = budget.FirstDay();
+            }
+
+            var overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
+            return overlappingDays;
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
