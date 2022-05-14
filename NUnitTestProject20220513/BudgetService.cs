@@ -17,12 +17,7 @@ namespace NUnitTestProject20220513
         }
 
         public decimal Query(DateTime start, DateTime end)
-        {
-            if (end < start)
-            {
-                return 0;
-            }
-
+        { 
             var budgets = _budgetRepository.GetAll();
 
             var period = new Period(start, end);

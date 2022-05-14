@@ -26,6 +26,7 @@ namespace NUnitTestProject20220513
         {
             var start = new DateTime(2022, 5, 10);
             var end = new DateTime(2022, 5, 1);
+            GivenBudgets();
             TotalAmountShouldBe(start, end, 0);
         }
 

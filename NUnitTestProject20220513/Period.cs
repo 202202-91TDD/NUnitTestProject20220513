@@ -20,6 +20,11 @@ namespace NUnitTestProject20220513
 
         public int OverlappingDays(Period another)
         {
+            if (End < Start)
+            {
+                return 0;
+            }
+
             if (another.End < Start || another.Start > End)
             {
                 return 0;
