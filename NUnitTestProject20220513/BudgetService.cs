@@ -23,13 +23,13 @@ namespace NUnitTestProject20220513
                 return 0;
             }
 
-            var data = budgetRepository.GetAll();
+            var budgets = budgetRepository.GetAll();
 
             var current = new DateTime(start.Year, start.Month, 1);
             var total = 0m;
             while (true)
             {
-                var budget = data.FirstOrDefault(m => m.YearMonth == current.ToString("yyyyMM")) ?? new Budget();
+                var budget = budgets.FirstOrDefault(m => m.YearMonth == current.ToString("yyyyMM")) ?? new Budget();
 
                 if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
