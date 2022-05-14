@@ -33,8 +33,8 @@ namespace NUnitTestProject20220513
 
                 if (budget != null)
                 {
-                    var overlappingDays =
-                        new Period(start, end).OverlappingDays(new Period(budget.FirstDay(), budget.LastDay()));
+                    var period = new Period(start, end);
+                    var overlappingDays = period.OverlappingDays(new Period(budget.FirstDay(), budget.LastDay()));
 
                     total += budget.DailyAmount() * overlappingDays;
                 }
