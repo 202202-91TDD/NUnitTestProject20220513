@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Linq;
 
 #endregion
 
@@ -24,14 +25,9 @@ namespace NUnitTestProject20220513
 
             var budgets = _budgetRepository.GetAll();
 
-            var total = 0m;
             var period = new Period(start, end);
-            foreach (var budget in budgets)
-            {
-                total += budget.OverlappingAmount(period);
-            }
 
-            return total;
+            return budgets.Sum(budget => budget.OverlappingAmount(period));
         }
 
         private bool InvalidQueryDate(DateTime start, DateTime end)
