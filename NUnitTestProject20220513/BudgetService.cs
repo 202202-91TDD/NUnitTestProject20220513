@@ -18,7 +18,7 @@ namespace NUnitTestProject20220513
 
         public decimal Query(DateTime start, DateTime end)
         {
-            if (InvalidQueryDate(start, end))
+            if (end < start)
             {
                 return 0;
             }
@@ -28,11 +28,6 @@ namespace NUnitTestProject20220513
             var period = new Period(start, end);
 
             return budgets.Sum(budget => budget.OverlappingAmount(period));
-        }
-
-        private bool InvalidQueryDate(DateTime start, DateTime end)
-        {
-            return end < start;
         }
     }
 }
